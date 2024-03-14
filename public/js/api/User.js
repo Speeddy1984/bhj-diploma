@@ -8,8 +8,11 @@ class User {
    * Устанавливает текущего пользователя в
    * локальном хранилище.
    * */
-  static setCurrent(user) {
 
+  static URL = "/user";
+
+  static setCurrent(user) {
+    localStorage.setItem("user", JSON.stringify(user));
   }
 
   /**
@@ -17,15 +20,14 @@ class User {
    * пользователе из локального хранилища.
    * */
   static unsetCurrent() {
-
+    localStorage.removeItem("user");
   }
-
   /**
    * Возвращает текущего авторизованного пользователя
    * из локального хранилища
    * */
   static current() {
-
+    return JSON.parse(localStorage.getItem("user"));
   }
 
   /**
@@ -33,7 +35,21 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch(callback) {
-
+    createRequest({
+      url: this.URL + "/current",
+      method: "GET",
+      responseType: "json",
+      data: this.current,
+      callback: (err, response) => {
+        if (response && response.user) {
+          let responseUser = { name: response.user.name, id: response.user.id };
+          User.setCurrent(responseUser);
+        } else {
+          User.unsetCurrent();
+        }
+        callback(err, response);
+      },
+    });
   }
 
   /**
@@ -44,16 +60,16 @@ class User {
    * */
   static login(data, callback) {
     createRequest({
-      url: this.URL + '/login',
-      method: 'POST',
-      responseType: 'json',
+      url: this.URL + "/login",
+      method: "POST",
+      responseType: "json",
       data,
       callback: (err, response) => {
         if (response && response.user) {
           this.setCurrent(response.user);
         }
         callback(err, response);
-      }
+      },
     });
   }
 
@@ -64,7 +80,19 @@ class User {
    * User.setCurrent.
    * */
   static register(data, callback) {
-
+    createRequest({
+      url: this.URL + "/register",
+      method: "POST",
+      responseType: "json",
+      data,
+      callback: (err, response) => {
+        if (response && response.user) {
+          let responseUser = { name: response.user.name, id: response.user.id };
+          User.setCurrent(responseUser);
+        }
+        callback(err, response);
+      },
+    });
   }
 
   /**
@@ -72,6 +100,19 @@ class User {
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
   static logout(callback) {
-
+    createRequest({
+      url: this.URL + "/logout",
+      method: "POST",
+      responseType: "json",
+      data: this.current(),
+      callback: (err, response) => {
+        if (response.success) {
+          User.unsetCurrent();
+          console.log(response);
+          console.log(err);
+          callback(err, response);
+        }
+      },
+    });
   }
 }
