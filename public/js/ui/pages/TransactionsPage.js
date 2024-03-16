@@ -33,20 +33,18 @@ class TransactionsPage {
    * */
   registerEvents() {
     const removeAccountBtn = document.querySelector(".remove-account");
-    const removeTransactionBtn = document.querySelector(".transaction__remove");
 
     removeAccountBtn.addEventListener("click", (e) => {
       e.preventDefault();
       this.removeAccount();
     });
 
-    if (removeTransactionBtn) {
-      removeTransactionBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        console.log(removeTransactionBtn.dataset.id);
-        this.removeTransaction(removeTransactionBtn.dataset.id);
-      });
-    }
+    this.element.addEventListener("click", (e) => {
+      e.preventDefault();
+      let currentTransaction = e.target.closest(".transaction__remove");
+      if (currentTransaction)
+        this.removeTransaction(currentTransaction.dataset.id);
+    });
   }
 
   /**
@@ -63,16 +61,15 @@ class TransactionsPage {
       return;
     }
 
-    Account.remove(this.lastOptions.account_id, (err, response) => {
-      if (response.success) {
-        let confirm = confirm('Вы действительно хотите удалить счёт?');
-        if (!confirm) {
-          return;
-        } else {
+    let confirmDeleteAccount = confirm("Вы действительно хотите удалить счёт?");
+    if (!confirmDeleteAccount) {
+      return;
+    }
+    Account.remove({ id: this.lastOptions.account_id }, (err, response) => {
+      if (response && response.success) {
         App.updateWidgets();
         App.updateForms();
         this.clear();
-        }
       }
     });
   }
@@ -84,17 +81,17 @@ class TransactionsPage {
    * либо обновляйте текущую страницу (метод update) и виджет со счетами
    * */
   removeTransaction(id) {
-    if (response.success) {
-      let confirm = confirm('Вы действительно хотите удалить эту транзакцию?');
-      if (!confirm) {
-        return;
-      } else {
-          Transaction.remove(id, (err, response) => {
-          App.update();
-      });
+    let confirmDeleteTransaction = confirm(
+      "Вы действительно хотите удалить эту транзакцию?"
+    );
+    if (!confirmDeleteTransaction) {
+      return;
     }
+
+    Transaction.remove({ id }, (err, response) => {
+      App.update();
+    });
   }
-}
 
   /**
    * С помощью Account.get() получает название счёта и отображает
@@ -108,12 +105,12 @@ class TransactionsPage {
     }
     this.lastOptions = options;
     Account.get(this.lastOptions.account_id, (err, response) => {
-      if (response.success) {
-        renderTitle(response.data.name);
+      if (response && response.success) {
+        this.renderTitle(response.data.name);
       }
     });
     Transaction.list(options, (err, response) => {
-      if (response.success) {
+      if (response && response.success) {
         this.renderTransactions(response.data);
       }
     });
@@ -159,33 +156,31 @@ class TransactionsPage {
   getTransactionHTML(item) {
     return `
     <div class="transaction transaction_${item.type} row">
-  <div class="col-md-7 transaction__details">
-    <div class="transaction__icon">
-        <span class="fa fa-money fa-2x"></span>
-    </div>
-    <div class="transaction__info">
-        <h4 class="transaction__title">${item.name}</h4>
-        <!-- дата -->
-        <div class="transaction__date">${this.formatDate(
-          item.created_at
-        )}</div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="transaction__summ">
-    <!--  сумма -->
-        ${item.sum}<span class="currency">₽</span>
-    </div>
-  </div>
-  <div class="col-md-2 transaction__controls">
-      <!-- в data-id нужно поместить id -->
-      <button class="btn btn-danger transaction__remove" data-id="${
-        item.id
-      }">
+      <div class="col-md-7 transaction__details">
+        <div class="transaction__icon">
+          <span class="fa fa-money fa-2x"></span>
+        </div>
+        <div class="transaction__info">
+          <h4 class="transaction__title">${item.name}</h4>
+          <!-- дата -->
+          <div class="transaction__date">${this.formatDate(
+            item.created_at
+          )}</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="transaction__summ">
+          <!--  сумма -->
+          ${item.sum}<span class="currency">₽</span>
+        </div>
+      </div>
+      <div class="col-md-2 transaction__controls">
+        <!-- в data-id нужно поместить id -->
+        <button class="btn btn-danger transaction__remove" data-id="${item.id}">
           <i class="fa fa-trash"></i>
-      </button>
-  </div>
-</div>
+        </button>
+      </div>
+    </div>
   `;
   }
 

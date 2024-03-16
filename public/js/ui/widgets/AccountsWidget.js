@@ -30,35 +30,18 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-    // const addNewAccBtn = document.querySelector(".accounts-panel");
-    // addNewAccBtn.addEventListener("click", (ev) => {
-    //   ev.preventDefault();
-    //   if (ev.target.closest("span.create-account")) {
-    //     App.getModal("createAccount").open();
-    //   }
-    //   if (ev.target.closest("li.account")) {
-    //     this.onSelectAccount(ev.target.closest("li.account"));
-    //   }
-    // });
+    this.element.addEventListener("click", (e) => {
+      e.preventDefault();
+      const createAccount = e.target.closest(".create-account");
+      const existingAccount = e.target.closest(".account");
 
-    const createAccountBtn = document.querySelector(".create-account");
-    const accounts = document.querySelectorAll(".account");
-
-    if (createAccountBtn) {
-      createAccountBtn.addEventListener("click", (e) => {
-        e.preventDefault();
+      if (createAccount) {
         App.getModal("createAccount").open();
-      });
-    }
-
-    if (accounts) {
-      accounts.forEach((item) => {
-        item.addEventListener("click", (e) => {
-          e.preventDefault();
-          this.onSelectAccount();
-        });
-      });
-    }
+      }
+      if (existingAccount) {
+        this.onSelectAccount(existingAccount);
+      }
+    });
   }
 
   /**
@@ -71,26 +54,13 @@ class AccountsWidget {
    * Отображает список полученных счетов с помощью
    * метода renderItem()
    * */
-  // update() {
-  //   console.log(User.current());
-
-  //   const data = User.current();
-  //   if (data) {
-  //     Account.list(data, (err, response) => {
-  //       if (response.success) {
-  //         this.clear();
-  //         this.renderItem(response.data);
-  //       }
-  //     });
-  //   }
-  // }
   update() {
     if (!User.current()) {
       return;
     }
 
     Account.list(User.current(), (err, response) => {
-      if (response.success) {
+      if (response && response.success) {
         this.clear();
 
         for (let item of response.data) {
@@ -122,10 +92,12 @@ class AccountsWidget {
    * */
   onSelectAccount(element) {
     const activeAccount = document.querySelector(".active");
-    activeAccount.classList.remove("active");
+    if (activeAccount) {
+      activeAccount.classList.remove("active");
+    }
 
     element.classList.add("active");
-    App.showPage("transactions", { account_id: id_счёта });
+    App.showPage("transactions", { account_id: element.dataset.id });
   }
 
   /**
@@ -135,7 +107,7 @@ class AccountsWidget {
    * */
   getAccountHTML(item) {
     return `
-    <li class="active account" data-id="${item.id}">
+    <li class="account" data-id="${item.id}">
     <a href="#">
         <span>${item.name}</span> /
         <span>${item.sum} ₽</span>

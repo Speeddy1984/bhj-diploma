@@ -183,11 +183,6 @@
       "id": "3"
     },
     {
-      "name": "111",
-      "user_id": "1bbi6cxwltfywlfr",
-      "id": "1bbi66ooltpsx3dt"
-    },
-    {
       "name": "123",
       "user_id": "1bbi6cxwltfywlfr",
       "id": "1bbi6i48ltpsxvzt"
@@ -228,14 +223,14 @@
       "id": "1bbi6i6sltpudt63"
     },
     {
-      "name": "TEST2",
+      "name": "NewTest",
       "user_id": "1bbi68nwltptz674",
-      "id": "1bbi616sltpug1l8"
+      "id": "1bbi65w4lttjbm93"
     },
     {
-      "name": "TEST3",
-      "user_id": "1bbi68nwltptz674",
-      "id": "1bbi6iwoltqk4ouj"
+      "name": "NewAccount",
+      "user_id": "1bbi6cxwltfywlfr",
+      "id": "1bbi6hcwlttjhkm9"
     }
   ],
   "transactions": [
@@ -375,15 +370,6 @@
       "user_id": "1"
     },
     {
-      "id": "1bbi64tsltpx4a2w",
-      "type": "income",
-      "name": "123",
-      "sum": 123,
-      "account_id": "1bbi616sltpug1l8",
-      "user_id": "1bbi68nwltptz674",
-      "created_at": "2024-03-13T14:50:15.175Z"
-    },
-    {
       "id": "1bbi67a0ltqk58ve",
       "type": "income",
       "name": "ЗП",
@@ -402,15 +388,6 @@
       "created_at": "2024-03-14T01:37:14.597Z"
     },
     {
-      "id": "1bbi6dacltqkfcdn",
-      "type": "income",
-      "name": "124124412",
-      "sum": 1241414,
-      "account_id": "1bbi6iwoltqk4ouj",
-      "user_id": "1bbi68nwltptz674",
-      "created_at": "2024-03-14T01:42:42.538Z"
-    },
-    {
       "id": "1bbi6374ltqlqk3w",
       "type": "income",
       "name": "142142",
@@ -418,15 +395,6 @@
       "account_id": "1bbi6i6sltpudt63",
       "user_id": "1bbi68nwltptz674",
       "created_at": "2024-03-14T02:19:25.387Z"
-    },
-    {
-      "id": "1bbi6ajwltqm6cxo",
-      "type": "income",
-      "name": "1",
-      "sum": 1,
-      "account_id": "1bbi6i6sltpudt63",
-      "user_id": "1bbi68nwltptz674",
-      "created_at": "2024-03-14T02:31:42.587Z"
     },
     {
       "id": "1bbi6efkltqmr0kb",
@@ -438,15 +406,6 @@
       "created_at": "2024-03-14T02:47:46.330Z"
     },
     {
-      "id": "1bbi67h4ltqmrcgd",
-      "type": "expense",
-      "name": "11414",
-      "sum": 123123,
-      "account_id": "1bbi616sltpug1l8",
-      "user_id": "1bbi68nwltptz674",
-      "created_at": "2024-03-14T02:48:01.740Z"
-    },
-    {
       "id": "1bbi6bdkltqn5o20",
       "type": "income",
       "name": "11",
@@ -454,33 +413,6 @@
       "account_id": "1bbi6i6sltpudt63",
       "user_id": "1bbi68nwltptz674",
       "created_at": "2024-03-14T02:59:09.959Z"
-    },
-    {
-      "id": "1bbi6cmoltqn5s0h",
-      "type": "expense",
-      "name": "33",
-      "sum": 33,
-      "account_id": "1bbi6iwoltqk4ouj",
-      "user_id": "1bbi68nwltptz674",
-      "created_at": "2024-03-14T02:59:15.088Z"
-    },
-    {
-      "id": "1bbi6ibwltqn8z3d",
-      "type": "expense",
-      "name": "10000",
-      "sum": 100000,
-      "account_id": "1bbi616sltpug1l8",
-      "user_id": "1bbi68nwltptz674",
-      "created_at": "2024-03-14T03:01:44.233Z"
-    },
-    {
-      "id": "1bbi6eowltqn97ki",
-      "type": "income",
-      "name": "123123",
-      "sum": 223000,
-      "account_id": "1bbi616sltpug1l8",
-      "user_id": "1bbi68nwltptz674",
-      "created_at": "2024-03-14T03:01:55.217Z"
     },
     {
       "id": "1bbi691cltquwizv",
@@ -508,6 +440,33 @@
       "account_id": "1bbi6i6sltpudt63",
       "user_id": "1bbi68nwltptz674",
       "created_at": "2024-03-14T07:08:20.565Z"
+    },
+    {
+      "id": "1bbi622slttjc1es",
+      "type": "income",
+      "name": "ЗП",
+      "sum": 10000,
+      "account_id": "1bbi65w4lttjbm93",
+      "user_id": "1bbi68nwltptz674",
+      "created_at": "2024-03-16T03:35:27.267Z"
+    },
+    {
+      "id": "1bbi6gf0lttjcvmd",
+      "type": "expense",
+      "name": "ЖКУ",
+      "sum": 9000,
+      "account_id": "1bbi65w4lttjbm93",
+      "user_id": "1bbi68nwltptz674",
+      "created_at": "2024-03-16T03:36:06.421Z"
+    },
+    {
+      "id": "1bbi6618lttjsluo",
+      "type": "income",
+      "name": "41124",
+      "sum": 14124,
+      "account_id": "1bbi6i48ltpsxvzt",
+      "user_id": "1bbi6cxwltfywlfr",
+      "created_at": "2024-03-16T03:48:20.255Z"
     }
   ]
 }

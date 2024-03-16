@@ -106,10 +106,8 @@ class User {
       responseType: "json",
       data: this.current(),
       callback: (err, response) => {
-        if (response.success) {
+        if (response && response.success) {
           User.unsetCurrent();
-          console.log(response);
-          console.log(err);
           callback(err, response);
         }
       },

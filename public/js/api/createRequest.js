@@ -6,11 +6,7 @@ const createRequest = (options = {}) => {
   const xhr = new XMLHttpRequest();
   xhr.responseType = "json";
 
-  const method = options.method;
-  let url = options.url;
-  let data = options.data;
-  callback = options.callback;
-
+  let { method, url, data, callback } = options;
   const formData = new FormData();
 
   if (method === "GET") {
@@ -34,10 +30,10 @@ const createRequest = (options = {}) => {
     xhr.open(method, url);
     xhr.send(formData);
   } catch (err) {
-    options.callback(err);
+    callback(err);
   }
 
   xhr.onload = function () {
-    options.callback(null, xhr.response);
+    callback(null, xhr.response);
   };
 };
